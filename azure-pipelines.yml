@@ -11,7 +11,7 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'd9fb65e3-e4a7-4037-b07c-966a241923cb'
+  dockerRegistryServiceConnection: '71a15a2f-e2c9-4766-9f4e-8a2babb5a57c'
   imageRepository: 'jordanxcloudlab'
   containerRegistry: 'jmurraylab5registry.azurecr.io'
   dockerfilePath: '**/Dockerfile'
