@@ -29,6 +29,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
+      name: MyPool
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
@@ -52,6 +53,7 @@ stages:
   - deployment: Deploy
     displayName: Deploy
     pool:
+      name: MyPool
       vmImage: $(vmImageName)
     environment: 'jordanx2cloudlab5.lab5namespace'
     strategy:
