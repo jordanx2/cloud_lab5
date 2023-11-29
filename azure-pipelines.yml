@@ -55,7 +55,7 @@ stages:
     pool:
       name: MyPool
       vmImage: $(vmImageName)
-    environment: 'jordanx2cloudlab5.lab5namespace'
+    environment: 'jordanx2cloudlab5.calico-system'
     strategy:
       runOnce:
         deploy:
