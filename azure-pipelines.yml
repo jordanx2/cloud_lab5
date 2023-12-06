@@ -45,16 +45,6 @@ stages:
     - upload: manifests
       artifact: manifests
 
-  - job: PullAllChanges
-    displayName: Pull All Changes
-    steps:
-    - checkout: self
-      fetchDepth: 0  # Fetch all history
-    - script: |
-        git fetch --all
-        git pull --all
-      displayName: Pull All Changes
-
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
