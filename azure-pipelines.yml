@@ -4,6 +4,7 @@
 
 trigger:
 - main
+- part2
 
 resources:
 - repo: self
