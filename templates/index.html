@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #studentList {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+
+    
+    <script>
+        function addStudent() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+
+            // Perform validation
+            if (!name || !email) {
+                alert('Please enter both name and email.');
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/add', true); // Use POST request
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    alert('Student Added');
+                } else {
+                    alert('Error adding student. Please try again.');
+                }
+            };
+
+            // Send the data as a query string
+            var data = 'name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email);
+            xhr.send(data);
+        }
+
+
+        function getStudents() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/students', true); // Use the /students route
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var results = JSON.parse(xhr.responseText);
+                    var output = '';
+                    for (var i = 0; i < results.Results.length; i++) {
+                        output += 'Name: ' + results.Results[i].Name + ', Email: ' + results.Results[i].Email + '<br>';
+                    }
+                    document.getElementById('studentList').innerHTML = output;
+                } else {
+                    document.getElementById('studentList').innerHTML = 'No students found.';
+                }
+            };
+            xhr.send();
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+<h1>Student Information System</h1>
+
+<div class="container">
+    <h2>Add Student</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter student name">
+    <label for="email">Email:</label>
+    <input type="text" id="email" placeholder="Enter student email">
+    <button onclick="addStudent()">Add Student</button>
+</div>
+
+<div class="container">
+    <h2>Get Students</h2>
+    <button onclick="getStudents()">Show Students</button>
+    <div id="studentList"></div>
+</div>
+
+</body>
+</html>
