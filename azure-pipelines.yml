@@ -3,8 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
-- part2
+  - none
 
 resources:
 - repo: self
@@ -80,3 +79,12 @@ stages:
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
 
+  - job: PullAllChanges
+    displayName: Pull All Changes
+    steps:
+    - checkout: self
+      fetchDepth: 0  # Fetch all history
+    - script: |
+        git fetch --all
+        git pull --all
+      displayName: Pull All Changes
